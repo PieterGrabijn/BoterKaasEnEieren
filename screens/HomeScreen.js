@@ -18,7 +18,9 @@ export default class HomeScreen extends React.Component {
     super();
     this.state = {
       gameStarted: false,
-      player: 'x',
+      player1: 'X',
+      player2: 'O',
+      currentPlayer: 'X',
       grid: [
         [null, null, null],
         [null, null, null],
@@ -39,8 +41,20 @@ export default class HomeScreen extends React.Component {
 
   fill = (row, column) => {
     var grid = this.state.grid;
-    grid[row][column] = this.state.player
-    this.setState({grid: grid})
+    if (!grid[row][column]){
+      grid[row][column] = this.state.currentPlayer
+    }else{
+      alert('Dit vakje is al bezet. Dus je beurt is over.')
+    }
+    if(this.state.currentPlayer == this.state.player1){
+      var currentPlayer = this.state.player2;
+    }else{
+      var currentPlayer = this.state.player1;
+    }
+    this.setState({
+      grid: grid,
+      currentPlayer: currentPlayer,
+    })
   }
 
   renderGame() {
