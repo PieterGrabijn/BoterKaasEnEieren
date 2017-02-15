@@ -114,10 +114,10 @@ export default class HomeScreen extends React.Component {
   gewonnen(winnaar){
     return (
       <View>
-        <Text>
+        <Text style={styles.WinnaarText}>
           {'De winnaar is ' + winnaar}
         </Text>
-        <TouchableHighlight onPress={this.stateReset.bind(this)}><Text style={styles.playAgain}>Play again</Text></TouchableHighlight>
+        <TouchableHighlight style={styles.playAgain} onPress={this.stateReset.bind(this)}><Text style={styles.playAgainText}>Play again</Text></TouchableHighlight>
       </View>
     )
   }
@@ -173,6 +173,16 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  WinnaarText: {
+    fontSize: 50,
+  },
+  playAgainText: {
+    fontSize: 60,
+  },
+  playAgain: {
+    padding: 50,
+    alignItems: 'center',
+  },
   fillText: {
     fontSize: 60,
   },
