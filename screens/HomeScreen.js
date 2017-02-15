@@ -13,10 +13,43 @@ import {
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      gameStarted: false
+    };
+  }
+
   static route = {
     navigationBar: {
       visible: false,
     },
+  }
+
+  WelkomAlert(){
+    this.setState({gameStarted: true})
+  }
+
+  renderGame() {
+    return(
+      <View style={styles.grid}>
+        <View style={styles.row}>
+          <View style={styles.column}></View>
+          <View style={styles.column}></View>
+          <View style={styles.column}></View>
+        </View>
+        <View style={styles.row}>
+          <View style={styles.column}></View>
+          <View style={styles.column}></View>
+          <View style={styles.column}></View>
+        </View>
+        <View style={styles.row}>
+          <View style={styles.column}></View>
+          <View style={styles.column}></View>
+          <View style={styles.column}></View>
+        </View>
+      </View>
+    );
   }
 
   render() {
@@ -25,52 +58,37 @@ export default class HomeScreen extends React.Component {
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
+          {
+            this.state.gameStarted && this.renderGame.bind(this)()
+          }
 
-          <View style={styles.welcomeContainer}>
-            <Text style={styles.getStartedText}>
-              Welkom
-            </Text>
-          </View>
-
+          {
+            !this.state.gameStarted && <View style={styles.welcomeContainer}>
+              <Text style={styles.getStartedText} onPress={this.WelkomAlert.bind(this)}>
+                  Start game.
+              </Text>
+            </View>
+          }
         </ScrollView>
 
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will run slightly slower but
-          you have access to useful development tools. {learnMoreButton}.
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    Linking.openURL('https://docs.getexponent.com/versions/latest/guides/development-mode');
-  }
-
-  _handleHelpPress = () => {
-    Linking.openURL('https://docs.getexponent.com/versions/latest/guides/up-and-running.html#can-t-see-your-changes');
-  }
 }
 
 const styles = StyleSheet.create({
+  grid: {
+    alignItems: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  column: {
+    borderWidth: 1,
+    borderColor: '#000',
+    height: 100,
+    width: 100,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -85,9 +103,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   welcomeContainer: {
-    // position: 'absolute',
-    // top: 10,
-    // left: ,
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 20,
