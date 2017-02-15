@@ -140,6 +140,7 @@ export default class HomeScreen extends React.Component {
           <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(2, 1)}><Text style={styles.fillText}>{this.state.grid[2][1]}</Text></TouchableHighlight>
           <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(2, 2)}><Text style={styles.fillText}>{this.state.grid[2][2]}</Text></TouchableHighlight>
         </View>
+        <TouchableHighlight style={styles.return} onPress={this.stateReset.bind(this)}><Text style={styles.playAgainText}>Return</Text></TouchableHighlight>
       </View>
     );
   }
@@ -173,6 +174,9 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  return: {
+    alignItems: 'center',
+  },
   WinnaarText: {
     fontSize: 50,
   },
