@@ -25,7 +25,8 @@ export default class HomeScreen extends React.Component {
         [null, null, null],
         [null, null, null],
         [null, null, null]
-      ]
+      ],
+      winnaar: null,
     };
   }
 
@@ -39,22 +40,86 @@ export default class HomeScreen extends React.Component {
     this.setState({gameStarted: true})
   }
 
-  fill = (row, column) => {
+  updateGrid(row, column){
     var grid = this.state.grid;
     if (!grid[row][column]){
       grid[row][column] = this.state.currentPlayer
     }else{
       alert('Dit vakje is al bezet. Dus je beurt is over.')
     }
+    this.setState({
+      grid: grid,
+    })
+  }
+
+  switchPlayer(row, column){
     if(this.state.currentPlayer == this.state.player1){
       var currentPlayer = this.state.player2;
     }else{
       var currentPlayer = this.state.player1;
     }
     this.setState({
-      grid: grid,
       currentPlayer: currentPlayer,
     })
+  }
+
+
+  stateReset(){
+    this.setState({
+      gameStarted: true,
+      player1: 'X',
+      player2: 'O',
+      currentPlayer: 'X',
+      grid: [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
+      ],
+      winnaar: null,
+    })
+  }
+
+  endGame(){
+    var grid = this.state.grid
+    var currentPlayer = this.state.currentPlayer
+    var winnaar = this.state.winnaar
+    if(grid[0][0] == currentPlayer && grid[0][1] == currentPlayer && grid[0][2] == currentPlayer){
+      winnaar = currentPlayer;
+    }else if (grid[1][0] == currentPlayer && grid[1][1] == currentPlayer && grid[1][2] == currentPlayer) {
+      winnaar = currentPlayer
+    }else if (grid[2][0] == currentPlayer && grid[2][1] == currentPlayer && grid[2][2] == currentPlayer) {
+      winnaar = currentPlayer
+    }else if (grid[0][0] == currentPlayer && grid[1][0] == currentPlayer && grid[2][0] == currentPlayer) {
+      winnaar = currentPlayer
+    }else if (grid[0][1] == currentPlayer && grid[1][1] == currentPlayer && grid[2][1] == currentPlayer) {
+      winnaar = currentPlayer
+    }else if (grid[0][2] == currentPlayer && grid[1][2] == currentPlayer && grid[2][2] == currentPlayer) {
+      winnaar = currentPlayer
+    }else if (grid[0][0] == currentPlayer && grid[1][1] == currentPlayer && grid[2][2] == currentPlayer) {
+      winnaar = currentPlayer
+    }else if (grid[0][2] == currentPlayer && grid[1][1] == currentPlayer && grid[2][0] == currentPlayer) {
+      winnaar = currentPlayer
+    }else{
+
+    }
+    this.setState({winnaar: winnaar})
+  }
+
+  fill = (row, column) => {
+    this.updateGrid.bind(this)(row, column);
+    this.endGame.bind(this)(row, column);
+    this.switchPlayer.bind(this)(row, column);
+  }
+
+  gewonnen(winnaar){
+    return (
+      <View>
+        <Text>
+          {'De winnaar is ' + winnaar}
+        </Text>
+        <TouchableHighlight onPress={this.stateReset.bind(this)}><Text style={styles.playAgain}>Play again</Text></TouchableHighlight>
+      </View>
+    )
   }
 
   renderGame() {
@@ -86,7 +151,7 @@ export default class HomeScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
           {
-            this.state.gameStarted && this.renderGame.bind(this)()
+            this.state.gameStarted && !this.state.winnaar && this.renderGame.bind(this)()
           }
 
           {
@@ -95,6 +160,10 @@ export default class HomeScreen extends React.Component {
                   Start game.
               </Text>
             </View>
+          }
+
+          {
+            !!this.state.winnaar && this.gewonnen(this.state.winnaar)
           }
         </ScrollView>
 
