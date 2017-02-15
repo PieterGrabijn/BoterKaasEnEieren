@@ -34,14 +34,6 @@ export default class HomeScreen extends React.Component {
 
         </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>
-              navigation/RootNavigation.js
-            </MonoText>
-          </View>
-        </View>
       </View>
     );
   }
