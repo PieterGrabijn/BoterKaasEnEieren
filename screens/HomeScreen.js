@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
-
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super();
@@ -124,21 +123,23 @@ export default class HomeScreen extends React.Component {
 
   renderGame() {
     return(
-      <View style={styles.grid}>
-        <View style={styles.row}>
-          <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(0, 0)}><Text style={styles.fillText}>{this.state.grid[0][0]}</Text></TouchableHighlight>
-          <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(0, 1)}><Text style={styles.fillText}>{this.state.grid[0][1]}</Text></TouchableHighlight>
-          <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(0, 2)}><Text style={styles.fillText}>{this.state.grid[0][2]}</Text></TouchableHighlight>
-        </View>
-        <View style={styles.row}>
-          <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(1, 0)}><Text style={styles.fillText}>{this.state.grid[1][0]}</Text></TouchableHighlight>
-          <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(1, 1)}><Text style={styles.fillText}>{this.state.grid[1][1]}</Text></TouchableHighlight>
-          <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(1, 2)}><Text style={styles.fillText}>{this.state.grid[1][2]}</Text></TouchableHighlight>
-        </View>
-        <View style={styles.row}>
-          <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(2, 0)}><Text style={styles.fillText}>{this.state.grid[2][0]}</Text></TouchableHighlight>
-          <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(2, 1)}><Text style={styles.fillText}>{this.state.grid[2][1]}</Text></TouchableHighlight>
-          <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(2, 2)}><Text style={styles.fillText}>{this.state.grid[2][2]}</Text></TouchableHighlight>
+      <View style={styles.containerGrid}>
+        <View style={styles.grid}>
+          <View style={styles.row}>
+            <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(0, 0)}><Text style={styles.fillText}>{this.state.grid[0][0]}</Text></TouchableHighlight>
+            <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(0, 1)}><Text style={styles.fillText}>{this.state.grid[0][1]}</Text></TouchableHighlight>
+            <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(0, 2)}><Text style={styles.fillText}>{this.state.grid[0][2]}</Text></TouchableHighlight>
+          </View>
+          <View style={styles.row}>
+            <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(1, 0)}><Text style={styles.fillText}>{this.state.grid[1][0]}</Text></TouchableHighlight>
+            <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(1, 1)}><Text style={styles.fillText}>{this.state.grid[1][1]}</Text></TouchableHighlight>
+            <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(1, 2)}><Text style={styles.fillText}>{this.state.grid[1][2]}</Text></TouchableHighlight>
+          </View>
+          <View style={styles.row}>
+            <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(2, 0)}><Text style={styles.fillText}>{this.state.grid[2][0]}</Text></TouchableHighlight>
+            <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(2, 1)}><Text style={styles.fillText}>{this.state.grid[2][1]}</Text></TouchableHighlight>
+            <TouchableHighlight style={styles.column} onPress={() => this.fill.bind(this)(2, 2)}><Text style={styles.fillText}>{this.state.grid[2][2]}</Text></TouchableHighlight>
+          </View>
         </View>
         <TouchableHighlight style={styles.return} onPress={this.stateReset.bind(this)}><Text style={styles.playAgainText}>Return</Text></TouchableHighlight>
       </View>
@@ -174,6 +175,9 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  containerGrid: {
+    alignItems: 'center',
+  },
   return: {
     alignItems: 'center',
   },
@@ -189,9 +193,13 @@ const styles = StyleSheet.create({
   },
   fillText: {
     fontSize: 60,
+    top: 10,
   },
   grid: {
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#000',
+    width: 302,
   },
   row: {
     flexDirection: 'row',
